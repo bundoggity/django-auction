@@ -1,0 +1,35 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>{{ title }}</h2>
+    <ul>
+        {% for auction in listings %}
+         
+        <li style="list-style-type: none;">
+            <a href="{% url 'listing' auction.id %}">
+            <div class="listing">        
+                {% if auction.image %}
+                
+                <div class="image-container">
+                    <img src="{{ auction.image }}">
+                </div>
+
+                {% endif %}
+
+                <div class="listing-data">
+                    <a href="{% url 'listing' auction.id %}"><strong> {{ auction.title }}  </strong> </a> <br>
+                    <p>{{ auction.description }} </p>
+                    {% if auction.isopen %}
+                    <strong style="font-size: 24px; color: green;"> $ {{ auction.highestbid }}</strong>
+                    {% else %}
+                    <strong style="font-size: 24px; color: red;">SOLD</strong>
+                    {% endif %}
+                </div>
+                
+            </div>
+            </a>
+        </li>
+        
+        {% endfor %}
+    </ul>
+{% endblock %}

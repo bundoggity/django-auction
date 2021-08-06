@@ -1,0 +1,106 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+
+
+{% if auction.isopen %}
+
+
+
+{% if user.pk == auction.user.pk %}
+    <a href="{% url 'closelisting' auction.id %}">Close listing</a>
+{% endif %}
+
+{% endif %}
+
+<div class="listing_page">
+
+    {% if user.is_authenticated %}
+    <form class="watchlist-button" action="{% url 'addwatch' auction.id %}" method="POST">
+        {% csrf_token %}
+        {% if watching %}
+        <button>Remove from watchlist</button>
+        {% else %}
+        <button>Add to watchlist</button>
+        {% endif %}
+    </form>
+{% endif %}
+
+    <h1>Listing: {{ auction.title }}</h1>
+    {% if auction.image %}
+        <img src="{{ auction.image }}">
+    {% endif %}
+    <p>{{ auction.description }}</p>
+</div>
+
+
+
+{% if auction.isopen %}
+
+
+<div class="comment">
+    <h3>Comments</h3>
+    <ul class="comments">
+    {% for comment in comments %}
+    <li>
+        {{comment.user.username}}:<br><hr> {{comment.comment}}
+    </li>
+    {% endfor %}
+    </ul>
+
+    {% if user.is_authenticated %}
+
+    <form class="commentform" action="{% url 'comment' auction.id %}" method="POST">
+        {% csrf_token %}
+        {{ commentform }}
+        <input type="submit">
+    </form>
+
+    {% else %}
+    You may not post comments until you <a href="{% url 'login' %}">log in</a>.
+    {% endif %}
+</div>
+<div class="bid">
+    <h1>Bid</h1>
+    <h1> ${{ auction.highestbid }} </h1>
+    {% if error %}
+        {{ error }} <br>
+    {% endif %}
+    
+    {% if user.is_authenticated %}
+    
+    {% if bidinfo %}
+        {{bidinfo}}
+    {% endif %}
+
+    <form action = "{% url 'bid' auction.id %} " method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Place bid">
+    </form>
+
+    {% else %}
+
+    You may not place a bid until you <a href="{% url 'login' %}">log in</a>.
+
+    {% endif %}
+
+</div>
+{% else %}
+
+    This listing has been closed. <br>
+
+    {% if top_bid is not None %}
+        {% if top_bid.user.pk == user.pk %}
+            You won the auction for ${{ top_bid.bid }}!
+        {% else %}
+            {{top_bid.user.username}} won the auction for ${{ top_bid.bid }}!
+        {% endif %}
+    {% else %}
+    
+    The auction was closed with no bids.
+
+    {% endif %}
+{% endif %}
+
+{% endblock %}

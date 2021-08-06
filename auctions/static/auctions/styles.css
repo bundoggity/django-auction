@@ -1,0 +1,111 @@
+body {
+    padding: 10px;
+}
+
+img {
+    max-width: 280px;
+    max-height: 280px;
+}
+
+hr {
+    width: 80%;
+}
+
+.image-container{
+    display: block;
+    margin-top: 20px;
+}
+
+.listing{
+    border: 1px solid gray;
+    float: left;
+    margin-top: 10px;
+    box-shadow: 0 4px 4px 0 rgba(214, 214, 214, 0.534);
+    height: 440px;
+    width: 480px;
+    margin: 20px;
+    text-align: center;
+}
+
+.listing:hover{
+    background-color: whitesmoke;
+}
+
+.listing-data{
+    display: inline-block;
+    
+}
+
+.newlisting{
+    padding: 12px 20px;
+    margin: 5px;
+    text-align: left;
+    float: left;
+}
+
+.comment{
+    border: 1px solid black;
+    display: inline-block;
+    padding: 10px;
+    margin-left: 5px;
+}
+
+.comments {
+    list-style: none;
+    padding: 20px;
+    display: block;
+    text-align: center;
+    overflow-wrap: break-word;
+    overflow: scroll;
+    overflow-x: hidden;
+    max-height: 440px;
+}
+
+.comments > li {
+    width: 400px;
+    height: fit-content;
+    padding: 10px;
+    display: block;
+    border: 1px solid gray;
+    margin: 10px;
+}
+
+.commentform {
+    padding-left: 25px;
+    display: block;
+}
+
+.commentform > textarea{
+    width: 400px;
+    height: 120px;
+    display: block;
+}
+
+.commentform > input {
+    margin-top: 5px;
+}
+
+.listing_page {
+    text-align: center;
+    display: block;
+    border: 1px solid black;
+    width: 600px;
+    height: 600px;
+    padding: 20px;
+    float: left;
+}
+
+.watchlist-button {
+    float: right;
+}
+
+.bid {
+    text-align: center;
+    display: block;
+    float: left;
+    border: 1px solid black;
+    height: fit-content;
+    width: fit-content;
+    padding: 10px;
+    margin-left: 5px;
+}

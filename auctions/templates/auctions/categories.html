@@ -1,0 +1,56 @@
+{% extends 'auctions/layout.html' %}
+
+{% block body %}
+
+    <h1>Categories</h1>
+
+   <form action="{% url 'categories' %}" method="POST">
+    {% csrf_token %}    
+    {{ form }}
+        
+        <button>Search</button>
+   </form>
+
+   <hr>
+
+   {% if listings %}
+
+   {{ choice }}
+
+   {% for auction in listings %}
+         
+   <li style="list-style-type: none;">
+       <a href="{% url 'listing' auction.id %}">
+       <div class="listing">        
+           {% if auction.image %}
+           
+           <div class="image-container">
+               <img src="{{ auction.image }}">
+           </div>
+
+           {% endif %}
+
+           <div class="listing-data">
+               <a href="{% url 'listing' auction.id %}"><strong> {{ auction.title }}  </strong> </a> <br>
+               <p>{{ auction.description }} </p>
+               {% if auction.isopen %}
+               <strong style="font-size: 24px; color: green;"> $ {{ auction.highestbid }}</strong>
+               {% else %}
+               <strong style="font-size: 24px; color: red;">SOLD</strong>
+               {% endif %}
+           </div>
+           
+       </div>
+       </a>
+   </li>
+   
+   {% endfor %}
+   
+   {% else %}
+   <p>No listings found with this category</p>
+   {% endif %}
+
+   {% endblock %}
+
+
+
